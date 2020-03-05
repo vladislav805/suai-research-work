@@ -51,5 +51,7 @@ for i in range(len(examples)):
     plt.plot(lambdas, solve(slots, clients = examples[i]), label = 'Clients = {}'.format(examples[i]));
 
 plt.legend();
+plt.xlabel('Вероятность отправки');
+plt.ylabel('Вероятность наложения/коллизии');
 plt.grid();
 plt.show();
