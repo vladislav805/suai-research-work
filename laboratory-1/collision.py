@@ -1,14 +1,8 @@
 import numpy as np;
 from matplotlib import pyplot as plt;
 import random;
-import decimal
 
-def drange(x, y, jump):
-  while x < y:
-    yield float(x)
-    x += decimal.Decimal(jump)
-
-# Рамки Лямбды Пуассона
+# Рамки вероятностей, которые будем моделировать
 ranges = (.01, .30);
 
 # Шаг моделирования
@@ -16,9 +10,16 @@ step = 0.01;
 
 rangesScale = 1 / step;
 
+# количество слотов для моделирования
+slots = 1000;
+
+# примеры графиков по количеству абонентов
+examples = [2, 3, 5, 15, 50];
+
 # Генерация лямбд
 lambdas = [i / rangesScale for i in range(int(ranges[0] * rangesScale), int(ranges[1] * rangesScale), int(step * rangesScale))];
 
+# Генерация вектора отправки сообщений абонентами размерностью `count` с вероятностью `p`
 def generateVectorMessages(p, count):
     res = [];
     for i in range(count):
@@ -41,11 +42,7 @@ def solve(slots, clients):
 
     return graph;
 
-
-slots = 1000; # количество слотов для моделирования
-
-examples = [2, 3, 5, 15, 50]; # количество абонентов, варианты для моделирования
-
+# Вывод графика
 plt.figure();
 for i in range(len(examples)):
     plt.plot(lambdas, solve(slots, clients = examples[i]), label = 'Clients = {}'.format(examples[i]));
